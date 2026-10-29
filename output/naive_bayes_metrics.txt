@@ -1,0 +1,14 @@
+Baseline: Naive Bayes; 0=Ham, 1=Spam
+              precision    recall  f1-score   support
+
+         Ham     0.9688    0.8245    0.8908       188
+        Spam     0.8559    0.9751    0.9116       201
+
+    accuracy                         0.9023       389
+   macro avg     0.9123    0.8998    0.9012       389
+weighted avg     0.9104    0.9023    0.9016       389
+
+Confusion matrix (rows=actual; Ham, Spam):
+[[155  33]
+ [  5 196]]
+False Spam alerts / missed Spam: 33 5

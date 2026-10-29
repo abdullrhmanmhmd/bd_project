@@ -114,14 +114,11 @@ are stored in screenshots/.
 
 ## Docker Hub
 
-Save the completed notebook and rebuild before publishing.
-Replace yourusername with the actual Docker Hub username.
-
 ```powershell
 docker build -t bd-project:dev .
 docker login
-docker tag bd-project:dev yourusername/bd-project:v1
-docker push yourusername/bd-project:v1
+docker tag bd-project:dev abdullrhman22/bd-project:v1
+docker push abdullrhman22/bd-project:v1
 ```
 
 Published image: yourusername/bd-project:v1
@@ -147,3 +144,8 @@ Open Jupyter and run the packaged notebook from beginning to end.
 Only output is mounted, so the notebook and dataset inside the image
 remain visible. Confirm that results appear in the host output folder.
 
+## Bonus
+
+Compared Multinomial Naive Bayes and Logistic Regression using the same
+training/test split and TF-IDF features. Results are saved in
+output/model_comparison.csv and output/model_metrics.txt.

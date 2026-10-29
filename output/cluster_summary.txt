@@ -1,132 +1,44 @@
-
-K-Means using an independent TF-IDF representation.
-
-CLASS was not used when fitting the vectorizer, fitting K-Means,
-or selecting k.
-
-Represented rows: 1836
-Excluded zero-vector rows: 109
-
-Excluded rows have cluster=-1 in cleaned_data.csv.
-This is not a fitted cluster.
-
-Repeated comments remain and contribute repeatedly to the clusters.
-
+K-Means; CLASS not used for fitting or choosing k.
+Themes are preliminary; inspect examples. Cluster IDs are arbitrary.
+Zero-vector rows have cluster=-1; repeated comments retain repeated weight.
+Represented / excluded: 1836 109
+Selected k / silhouette: 5 0.07154863222518808
 Candidate scores:
  k  silhouette
  2    0.053610
  3    0.062286
  4    0.069924
  5    0.071549
-
-Selected k: 5
-Silhouette: 0.0715
-
-This is the highest score among the tested values 2-5.
-It does not prove that the grouping is optimal.
-A silhouette near zero indicates overlapping groups.
-
-Cluster 0
-Rows: 1285
-
-Top terms: like, check, channel, views, video, music, just, good, billion, best
-
-Ham: 51.28%
-Spam: 48.72%
-
-Preliminary interpretation:
-Promotion-related vocabulary: channel, check. Promotional requests may contribute to this group.
-
-Majority known label: Ham (51.28%).
-
-Cluster IDs are arbitrary and do not equal class IDs.
-Check the preliminary interpretation against the examples.
-
-Sample comments:
-- Hey, hit this shit up while yall can, they killed the versace remix. Just type in CGE &quot;Versace Freestyle (Get Money)&quot; Shot by Ja-Wan Gardner and help them reach 1 million views.
-- Hey plz check out my music video. Thanks!! :-)﻿
-- Thumbs up if FE-FE-FE-FE-FEGELEIN brought u here﻿
-
-Cluster 1
-Rows: 84
-
-Top terms: love, lie, shakira, perry, eminem, way, katy, rihanna, songs, nice
-
-Ham: 86.90%
-Spam: 13.10%
-
-Preliminary interpretation:
-Music/reaction vocabulary: eminem, katy, love, shakira. This may represent music discussion or reactions.
-
-Majority known label: Ham (86.90%).
-
-Cluster IDs are arbitrary and do not equal class IDs.
-Check the preliminary interpretation against the examples.
-
-Sample comments:
-- love!!!!﻿
-- i love this so much. AND also I Generate Free Leads on Auto Pilot &amp; You Can  Too! http://www.MyLeaderGate.com/moretraffic﻿
-- I love﻿
-
-Cluster 2
-Rows: 167
-
-Top terms: youtube, check, video, playlist, look, eminem, channel, liked, mm, popular
-
-Ham: 2.40%
-Spam: 97.60%
-
-Preliminary interpretation:
-Promotion-related vocabulary: channel, check. Promotional requests may contribute to this group.
-
-Majority known label: Spam (97.60%).
-
-Cluster IDs are arbitrary and do not equal class IDs.
-Check the preliminary interpretation against the examples.
-
-Sample comments:
-- Check out this video on YouTube:﻿
-- Check out this video on YouTube:﻿
-- Check out this video on YouTube:﻿
-
-Cluster 3
-Rows: 181
-
-Top terms: song, love, best, nice, good, old, like, favorite, world, makes
-
-Ham: 90.61%
-Spam: 9.39%
-
-Preliminary interpretation:
-Music/reaction vocabulary: love, song. This may represent music discussion or reactions.
-
-Majority known label: Ham (90.61%).
-
-Cluster IDs are arbitrary and do not equal class IDs.
-Check the preliminary interpretation against the examples.
-
-Sample comments:
-- This looks so fun and it's a good song﻿
-- I love this song so much﻿
-- Yea stil the best WK song ever<br />Thumbs up of you think the same<br />﻿
-
-Cluster 4
-Rows: 119
-
-Top terms: subscribe, channel, like, videos, guys, ll, pleas, thanks, hey, check
-
-Ham: 0.00%
-Spam: 100.00%
-
-Preliminary interpretation:
-Promotion-related vocabulary: channel, check, subscribe. Promotional requests may contribute to this group.
-
-Majority known label: Spam (100.00%).
-
-Cluster IDs are arbitrary and do not equal class IDs.
-Check the preliminary interpretation against the examples.
-
-Sample comments:
-- Dear friends please subscribe to my channel I will be very glad to see You virucide ;-)﻿
-- Hey everyone check out my channel leave a like and subscribe please and if there is a song you want me to do post the name in the comments and I will get on to it(: Thanks
-- subscribe to my channel people :D﻿
+Cluster summaries:
+         Rows                                                                   Top terms                Interpretation  Ham %  Spam %
+cluster                                                                                                                               
+0        1285        like, check, channel, views, video, music, just, good, billion, best  Promotion-related vocabulary  51.28   48.72
+1          84          love, lie, shakira, perry, eminem, way, katy, rihanna, songs, nice     Music/reaction vocabulary  86.90   13.10
+2         167  youtube, check, video, playlist, look, eminem, channel, liked, mm, popular  Promotion-related vocabulary   2.40   97.60
+3         181             song, love, best, nice, good, old, like, favorite, world, makes     Music/reaction vocabulary  90.61    9.39
+4         119       subscribe, channel, like, videos, guys, ll, pleas, thanks, hey, check  Promotion-related vocabulary   0.00  100.00
+Class counts:
+class_name  Ham  Spam
+cluster              
+0           659   626
+1            73    11
+2             4   163
+3           164    17
+4             0   119
+Examples:
+ cluster                                                                                                                                                                                     CONTENT                                                                                                                                                                        cleaned_text
+       0 Hey, hit this shit up while yall can, they killed the versace remix. Just type in CGE &quot;Versace Freestyle (Get Money)&quot; Shot by Ja-Wan Gardner and help them reach 1 million views. hey hit this shit up while yall can they killed the versace remix just type in cge versace freestyle get money shot by ja wan gardner and help them reach numbertoken million views
+       0                                                                                                                                             Hey plz check out my music video. Thanks!! :-)﻿                                                                                                                                             hey plz check out my music video thanks
+       0                                                                                                                                           Thumbs up if FE-FE-FE-FE-FEGELEIN brought u here﻿                                                                                                                                    thumbs up if fe fe fe fe fegelein brought u here
+       1                                                                                                                                                                                   love!!!!﻿                                                                                                                                                                                love
+       1                                                              i love this so much. AND also I Generate Free Leads on Auto Pilot &amp; You Can  Too! http://www.MyLeaderGate.com/moretraffic﻿                                                                                               i love this so much and also i generate free leads on auto pilot you can too urltoken
+       1                                                                                                                                                                                     I love﻿                                                                                                                                                                              i love
+       2                                                                                                                                                           Check out this video on YouTube:﻿                                                                                                                                                     check out this video on youtube
+       2                                                                                                                                                           Check out this video on YouTube:﻿                                                                                                                                                     check out this video on youtube
+       2                                                                                                                                                           Check out this video on YouTube:﻿                                                                                                                                                     check out this video on youtube
+       3                                                                                                                                                     This looks so fun and it's a good song﻿                                                                                                                                              this looks so fun and it s a good song
+       3                                                                                                                                                                   I love this song so much﻿                                                                                                                                                            i love this song so much
+       3                                                                                                                  Yea stil the best WK song ever<br />Thumbs up of you think the same<br />﻿                                                                                                                      yea stil the best wk song ever thumbs up of you think the same
+       4                                                                                                    Dear friends please subscribe to my channel I will be very glad to see You virucide ;-)﻿                                                                                                 dear friends please subscribe to my channel i will be very glad to see you virucide
+       4                 Hey everyone check out my channel leave a like and subscribe please and if there is a song you want me to do post the name in the comments and I will get on to it(: Thanks           hey everyone check out my channel leave a like and subscribe please and if there is a song you want me to do post the name in the comments and i will get on to it thanks
+       4                                                                                                                                                          subscribe to my channel people :D﻿                                                                                                                                                    subscribe to my channel people d
