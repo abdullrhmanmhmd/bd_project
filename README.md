@@ -11,7 +11,7 @@ This project analyzes YouTube comments, classifies them as Ham or Spam, and expl
 Creators: T. C. Alberto and J. V. Lochter.  
 License: CC BY 4.0.
 
-The dataset contains 1,956 comments from five videos. The project merges the five original CSV files.
+The project combines five CSV files containing 1,956 original comments.
 
 - `CONTENT`: original comment text.
 - `CLASS`: true label, where `0 = Ham` and `1 = Spam`.
@@ -32,7 +32,7 @@ The notebook includes:
 - Accuracy, precision, recall, F1, and confusion matrices.
 - K-Means with silhouette scores, top terms, and example comments.
 
-Both classifiers use the same training/test split and TF-IDF features. Identical cleaned texts stay together in the split, and TF-IDF learns from training text only.
+Both classifiers use the same split and TF-IDF features. Identical cleaned texts stay together in the training/test split, and TF-IDF learns from training text only.
 
 Evaluation uses one held-out split from five videos. It does not establish performance on entirely new videos.
 
@@ -40,54 +40,76 @@ Evaluation uses one held-out split from five videos. It does not establish perfo
 
 - Docker Desktop running with Linux containers.
 - Windows PowerShell.
+- A local copy of this repository, including its data and notebook.
 
-Python packages are installed automatically from `requirements.txt`.
+Docker Hub image: `abdullrhman22/bd-project:v2`
 
-## Build and Run for Development
+## Create the Working Container
 
-Open PowerShell inside the project folder:
+Open PowerShell inside the project folder containing `Dockerfile`, `data`, and `notebook`.
+
+Run these commands once to create the container:
 
 ```powershell
-docker build -t bd-project:dev .
+docker pull abdullrhman22/bd-project:v2
 
 $projectRoot = (Get-Location).Path
 
-docker run -d --name bd-project-container -p 8888:8888 --mount "type=bind,source=$projectRoot,target=/home/jovyan/bd-project" bd-project:dev
+docker run -d --name bd-project-work-v2 -p 8888:8888 --mount "type=bind,source=$projectRoot,target=/home/jovyan/bd-project" abdullrhman22/bd-project:v2
 
-docker exec bd-project-container jupyter server list
+docker exec bd-project-work-v2 jupyter server list
 ```
 
 Open http://localhost:8888 and enter the token shown by the last command.
 
-Open `analysis.ipynb` inside the `notebook` folder, then select **Restart Kernel and Run All Cells**.
+Open `notebook/analysis.ipynb`, then select **Restart Kernel and Run All Cells**.
 
-The whole project is mounted for development, so notebook changes and generated results are saved on the host.
+If `bd-project-work-v2` already exists, use the resume commands below instead of creating it again.
 
-Run `docker run` only when creating the container. For later sessions, use:
+## Saving Your Work
+
+The whole project folder is mounted into the container.
+
+- The Python environment comes from image `v2`.
+- Working files come from the local project folder.
+- **Ctrl + S** saves notebook changes directly to the host.
+- Generated results are saved in the host's `output` folder.
+- Saved host files remain available after stopping or removing the container.
+
+Use the folder containing the project files. Mounting an empty folder would hide the project files packaged inside the image.
+
+Saving local changes does not automatically update the Docker Hub image.
+
+## Stop and Resume
+
+To stop the working container:
 
 ```powershell
-docker start bd-project-container
-docker exec bd-project-container jupyter server list
+docker stop bd-project-work-v2
 ```
 
-To stop it:
+To resume later:
 
 ```powershell
-docker stop bd-project-container
+docker start bd-project-work-v2
+
+docker exec bd-project-work-v2 jupyter server list
 ```
+
+Open http://localhost:8888 and use the current token.
 
 ## Docker Basics
 
-- **Image:** packaged project files and software environment.
+- **Image:** packaged files and software environment.
 - **Container:** an instance created from an image.
 - **Port mapping `8888:8888`:** host port on the left, container port on the right.
-- **Bind mount:** connects a host folder to a container folder and keeps saved files available on the host.
+- **Bind mount:** connects the local project folder to the container folder.
 
 Rebuilding an image does not automatically update existing containers.
 
-## Build and Push Version v2
+## Build and Publish
 
-Run these commands inside the project folder:
+The following commands build and publish version `v2` from the local project:
 
 ```powershell
 docker build -t abdullrhman22/bd-project:v2 .
@@ -97,11 +119,15 @@ docker login
 docker push abdullrhman22/bd-project:v2
 ```
 
-Docker Hub image: `abdullrhman22/bd-project:v2`
+Python packages are installed from `requirements.txt` during the build.
 
-## Run the Docker Hub Image
+For future project releases, use a new tag such as `v3`.
 
-Open PowerShell in a new, empty test folder outside the source project:
+## Verify the Published Image
+
+Another team member should test the image using a new, empty folder outside the source project.
+
+Open PowerShell in that folder:
 
 ```powershell
 New-Item -ItemType Directory -Path output
@@ -115,19 +141,13 @@ docker run -d --name bd-project-v2-test -p 8889:8888 --mount "type=bind,source=$
 docker exec bd-project-v2-test jupyter server list
 ```
 
-Open http://localhost:8889 and enter the token. Use port **8889** in the browser even if the server output shows port 8888.
+Open http://localhost:8889 and enter the token. Use **8889** in the browser even if the server output shows port 8888.
 
-Open the packaged notebook and select **Restart Kernel and Run All Cells**.
+Run the packaged notebook using **Restart Kernel and Run All Cells**.
 
-Only `output` is mounted during this test. The notebook and dataset are loaded from the image, and results are saved in the host's `output` folder.
+Only `output` is mounted for this verification, so the notebook and dataset are loaded from the image. Confirm that all results appear in the host's `output` folder.
 
-For later sessions:
-
-```powershell
-docker stop bd-project-v2-test
-docker start bd-project-v2-test
-docker exec bd-project-v2-test jupyter server list
-```
+After the test, record the team member's name, date, image tag, and result.
 
 ## Output Files
 
@@ -154,18 +174,14 @@ The five written insights are included directly in the notebook as Markdown cell
 docker images
 docker ps
 docker ps -a
-docker logs --tail 40 bd-project-v2-test
-docker inspect bd-project-v2-test
+docker logs --tail 40 bd-project-work-v2
+docker inspect bd-project-work-v2
 ```
 
 Save screenshots of the successful build, image, running container, and executed notebook in `screenshots/`.
 
-## Teammate Verification
-
-Another team member should follow the Docker Hub instructions, run the notebook successfully, and confirm that output files appear on their computer.
-
-After the test, record the member's name, test date, image tag, and result here.
-
 ## Bonus
 
-The project compares Naive Bayes and Logistic Regression using the same split and TF-IDF features. The comparison is saved in `output/model_comparison.csv`.
+The project compares Naive Bayes and Logistic Regression using the same split and TF-IDF features.
+
+The comparison is saved in `output/model_comparison.csv`.
