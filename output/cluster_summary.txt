@@ -1,0 +1,132 @@
+
+K-Means using an independent TF-IDF representation.
+
+CLASS was not used when fitting the vectorizer, fitting K-Means,
+or selecting k.
+
+Represented rows: 1836
+Excluded zero-vector rows: 109
+
+Excluded rows have cluster=-1 in cleaned_data.csv.
+This is not a fitted cluster.
+
+Repeated comments remain and contribute repeatedly to the clusters.
+
+Candidate scores:
+ k  silhouette
+ 2    0.053610
+ 3    0.062286
+ 4    0.069924
+ 5    0.071549
+
+Selected k: 5
+Silhouette: 0.0715
+
+This is the highest score among the tested values 2-5.
+It does not prove that the grouping is optimal.
+A silhouette near zero indicates overlapping groups.
+
+Cluster 0
+Rows: 1285
+
+Top terms: like, check, channel, views, video, music, just, good, billion, best
+
+Ham: 51.28%
+Spam: 48.72%
+
+Preliminary interpretation:
+Promotion-related vocabulary: channel, check. Promotional requests may contribute to this group.
+
+Majority known label: Ham (51.28%).
+
+Cluster IDs are arbitrary and do not equal class IDs.
+Check the preliminary interpretation against the examples.
+
+Sample comments:
+- Hey, hit this shit up while yall can, they killed the versace remix. Just type in CGE &quot;Versace Freestyle (Get Money)&quot; Shot by Ja-Wan Gardner and help them reach 1 million views.
+- Hey plz check out my music video. Thanks!! :-)﻿
+- Thumbs up if FE-FE-FE-FE-FEGELEIN brought u here﻿
+
+Cluster 1
+Rows: 84
+
+Top terms: love, lie, shakira, perry, eminem, way, katy, rihanna, songs, nice
+
+Ham: 86.90%
+Spam: 13.10%
+
+Preliminary interpretation:
+Music/reaction vocabulary: eminem, katy, love, shakira. This may represent music discussion or reactions.
+
+Majority known label: Ham (86.90%).
+
+Cluster IDs are arbitrary and do not equal class IDs.
+Check the preliminary interpretation against the examples.
+
+Sample comments:
+- love!!!!﻿
+- i love this so much. AND also I Generate Free Leads on Auto Pilot &amp; You Can  Too! http://www.MyLeaderGate.com/moretraffic﻿
+- I love﻿
+
+Cluster 2
+Rows: 167
+
+Top terms: youtube, check, video, playlist, look, eminem, channel, liked, mm, popular
+
+Ham: 2.40%
+Spam: 97.60%
+
+Preliminary interpretation:
+Promotion-related vocabulary: channel, check. Promotional requests may contribute to this group.
+
+Majority known label: Spam (97.60%).
+
+Cluster IDs are arbitrary and do not equal class IDs.
+Check the preliminary interpretation against the examples.
+
+Sample comments:
+- Check out this video on YouTube:﻿
+- Check out this video on YouTube:﻿
+- Check out this video on YouTube:﻿
+
+Cluster 3
+Rows: 181
+
+Top terms: song, love, best, nice, good, old, like, favorite, world, makes
+
+Ham: 90.61%
+Spam: 9.39%
+
+Preliminary interpretation:
+Music/reaction vocabulary: love, song. This may represent music discussion or reactions.
+
+Majority known label: Ham (90.61%).
+
+Cluster IDs are arbitrary and do not equal class IDs.
+Check the preliminary interpretation against the examples.
+
+Sample comments:
+- This looks so fun and it's a good song﻿
+- I love this song so much﻿
+- Yea stil the best WK song ever<br />Thumbs up of you think the same<br />﻿
+
+Cluster 4
+Rows: 119
+
+Top terms: subscribe, channel, like, videos, guys, ll, pleas, thanks, hey, check
+
+Ham: 0.00%
+Spam: 100.00%
+
+Preliminary interpretation:
+Promotion-related vocabulary: channel, check, subscribe. Promotional requests may contribute to this group.
+
+Majority known label: Spam (100.00%).
+
+Cluster IDs are arbitrary and do not equal class IDs.
+Check the preliminary interpretation against the examples.
+
+Sample comments:
+- Dear friends please subscribe to my channel I will be very glad to see You virucide ;-)﻿
+- Hey everyone check out my channel leave a like and subscribe please and if there is a song you want me to do post the name in the comments and I will get on to it(: Thanks
+- subscribe to my channel people :D﻿

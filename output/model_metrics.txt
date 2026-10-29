@@ -1,0 +1,51 @@
+
+Model: Multinomial Naive Bayes with training-only TF-IDF
+Target: 0=Ham, 1=Spam
+
+Split: first split of StratifiedGroupKFold with five splits.
+Identical cleaned texts stay together. Class proportions are approximate.
+This is one holdout evaluation, not five-fold cross-validation.
+Random state: 42
+
+Training rows: 1556
+Test rows: 389
+Shared cleaned texts: 0
+Texts with conflicting labels: 1
+
+Accuracy: 0.9023
+Spam precision: 0.8559
+Spam recall: 0.9751
+Spam F1: 0.9116
+Majority-class baseline accuracy: 0.5167
+
+              precision    recall  f1-score   support
+
+         Ham     0.9688    0.8245    0.8908       188
+        Spam     0.8559    0.9751    0.9116       201
+
+    accuracy                         0.9023       389
+   macro avg     0.9123    0.8998    0.9012       389
+weighted avg     0.9104    0.9023    0.9016       389
+
+
+Confusion matrix (rows=true, columns=predicted; Ham, Spam):
+[[155  33]
+ [  5 196]]
+
+Interpretation:
+33 Ham comments were incorrectly flagged as Spam.
+5 Spam comments were missed.
+85.6% of predicted Spam comments were actually Spam.
+97.5% of actual Spam comments were detected.
+
+Limitations:
+Only five video groups are available. This is not a test on entirely new
+videos or future comments. Similar wording can remain across the split.
+Cleaning loses emoji/punctuation signals. English stopwords do not cover
+all languages.
+
+Actual class distributions (%):
+           All %    Train %     Test %
+CLASS                                 
+Spam   51.568123  51.542416  51.670951
+Ham    48.431877  48.457584  48.329049
